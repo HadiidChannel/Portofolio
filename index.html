@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio | Hadiid Ar Raad</title>
+    <style>
+        /* RESET & BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Consolas', 'Courier New', monospace;
+            scroll-behavior: smooth;
+        }
+        
+        :root {
+            --bg-color: #0f172a;
+            --surface-color: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #10b981;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* NAVBAR */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #334155;
+            transition: top 0.3s;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* HAMBURGER MENU (Sembunyi di Desktop) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--accent);
+            transition: all 0.3s ease-in-out;
+            border-radius: 3px;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            margin-top: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero h2 {
+            color: var(--accent);
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            background-color: var(--accent);
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+        }
+
+        /* SECTIONS GENERAL */
+        section {
+            padding: 5rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-title span {
+            color: var(--accent);
+        }
+
+        /* GRID LAYOUTS FOR CARDS */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* CARDS */
+        .card {
+            background-color: var(--surface-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid #334155;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        /* LISTS */
+        .tech-list {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .tech-list li {
+            font-size: 0.8rem;
+            background: #334155;
+            padding: 4px 10px;
+            border-radius: 4px;
+            color: var(--accent);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--surface-color);
+            border-top: 1px solid #334155;
+            color: var(--text-muted);
+        }
+
+        /* MOBILE RESPONSIVE TWEAKS */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex; 
+            }
+            
+            .nav-links {
+                display: none; 
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 70px; 
+                left: 0;
+                background-color: rgba(15, 23, 42, 0.98);
+                text-align: center;
+                padding: 1rem 0;
+                border-bottom: 1px solid #334155;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+            
+            .hero {
+                height: auto;
+                padding-top: 8rem;
+                padding-bottom: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">>_ Hadiid.dev</div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#portfolio">Projects</a></li>
+            <li><a href="#cert">Certificates</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="about">
+        <h1>HADIID AR RAAD, S.KOM, MCF</h1>
+        <h2>Junior Programmer | Fullstack & IoT</h2>
+        <p>Fresh Graduate yang adaptif dengan minat besar pada Embedded System dan Web Development. Mampu merancang alur logika program yang kompleks dan terbiasa mendiagnosa masalah pada integrasi sistem end-to-end.</p>
+        <a href="#portfolio" class="btn">View Projects</a>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title">Work <span>Experience</span></h2>
+        <div class="grid-container" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto;">
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="card-title">Magang Divisi Keuangan & Akuntansi</h3>
+                    <div class="card-subtitle">Bank Sulselbar | Departemen Management Information System (2025)</div>
+                    <p class="card-desc">Berperan dalam mendukung operasional departemen MIS, memahami alur data keuangan, dan integrasi sistem informasi di skala enterprise (perbankan).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <h2 class="section-title">Featured <span>Projects</span></h2>
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="card-title">IoT Smart Canopy</h3>
+                    <div class="card-subtitle">Embedded System & Hardware-Software Integration</div>
+                    <p class="card-desc">Sistem kanopi otomatis yang mengintegrasikan sensor hujan dan cahaya dengan mikrokontroler. Diselesaikan dari tahap perancangan logika, wiring, hingga pengujian respon otomatis secara real-time.</p>
+                    <ul class="tech-list">
+                        <li>IoT</li>
+                        <li>Microcontroller</li>
+                        <li>Sensor Logic</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="card-title">Anonymous Chat</h3>
+                    <div class="card-subtitle">Web Development</div>
+                    <p class="card-desc">Aplikasi berbasis web untuk pertukaran pesan secara anonim. Merancang logika backend dan antarmuka pengguna agar proses komunikasi berjalan efisien dan aman.</p>
+                    <ul class="tech-list">
+                        <li>Fullstack</li>
+                        <li>Web Socket/HTTP</li>
+                        <li>UI/UX</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cert">
+        <h2 class="section-title">Licenses & <span>Certifications</span></h2>
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="card-title">Microsoft Azure Data Fundamentals</h3>
+                    <div class="card-subtitle">Microsoft | Issued: May 14, 2025</div>
+                    <p class="card-desc">Sertifikasi global pemahaman fundamental data pada layanan cloud Azure.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="card-title">Fullstack Web Development Program</h3>
+                    <div class="card-subtitle">Makassar Coding | 2023</div>
+                    <p class="card-desc">Pelatihan intensif pengembangan aplikasi web dari sisi front-end hingga back-end.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="card-title">TOEFL Prediction Test - Score: 543</h3>
+                    <div class="card-subtitle">English Domestic | Jan 31, 2026</div>
+                    <p class="card-desc">Listening: 46 | Structure: 57 | Reading: 60.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="text-align: center;">
+        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <p style="margin-bottom: 2rem; color: var(--text-muted);">Tertarik untuk merekrut atau berkolaborasi?</p>
+        <p style="margin-bottom: 0.5rem; font-weight: bold; color: var(--text-main);">📧 hadiidarraad622@gmail.com</p>
+        <p style="margin-bottom: 2rem; font-weight: bold; color: var(--text-main);">📱 0813-5635-4393</p>
+        <a href="src/CV.pdf" target="_blank" class="btn" style="background-color: transparent; border: 1px solid var(--accent); color: var(--accent);">
+            Download Full CV (PDF)
+        </a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Hadiid Ar Raad.</p>
+    </footer>
+
+    <script>
+        // 1. Logika Scroll Navbar (Sembunyi pas scroll turun, muncul pas scroll naik)
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('nav');
+        
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                navbar.style.top = "-80px"; // Sembunyikan ke atas
+            } else {
+                navbar.style.top = "0"; // Munculkan kembali
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        // 2. Logika Hamburger Menu Mobile
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            // Toggle class 'active' buat nampilin atau nyembunyiin menu
+            navLinks.classList.toggle('active');
+        });
+
+        // 3. Logika tutup menu otomatis kalau salah satu link diklik di HP
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
